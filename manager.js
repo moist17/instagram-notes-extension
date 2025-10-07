@@ -56,10 +56,11 @@ function displayTable(notes) {
   table.style.display = 'table';
   emptyState.style.display = 'none';
   
+  // ✅ 移除 onclick，改用 data-username
   tableBody.innerHTML = notes.map(note => `
     <tr data-username="${note.username}">
       <td>
-        <span class="username-cell" onclick="openInstagram('${note.username}')">
+        <span class="username-cell" data-username="${note.username}">
           @${escapeHtml(note.username)}
         </span>
       </td>
@@ -73,10 +74,10 @@ function displayTable(notes) {
       <td>${formatDate(note.timestamp)}</td>
       <td>
         <div class="actions-cell">
-          <button class="icon-btn edit-btn" onclick="editNote('${note.username}')" title="編輯">
+          <button class="icon-btn edit-btn" data-username="${note.username}" title="編輯">
             ✏️
           </button>
-          <button class="icon-btn delete-btn" onclick="deleteNote('${note.username}')" title="刪除">
+          <button class="icon-btn delete-btn" data-username="${note.username}" title="刪除">
             🗑️
           </button>
         </div>
@@ -127,6 +128,48 @@ function editNote(username) {
   document.getElementById('editModal').classList.add('show');
 }
 
+// 刪除備註
+function deleteNote(username) {
+  if (!confirm(`確定要刪除 @${username} 的備註嗎？`)) {
+    return;
+  }
+  
+  const key = `ig_note_${username}`;
+  const timeKey = `ig_note_time_${username}`;
+  const tagsKey = `ig_note_tags_${username}`;
+  
+  chrome.storage.local.remove([key, timeKey, tagsKey], function() {
+    loadAllNotes();
+  });
+}
+
+// ✅ 新增：統一的事件委派處理
+document.addEventListener('click', function(e) {
+  // 處理使用者名稱點擊
+  if (e.target.closest('.username-cell')) {
+    const username = e.target.closest('.username-cell').dataset.username;
+    if (username) {
+      openInstagram(username);
+    }
+  }
+  
+  // 處理編輯按鈕
+  if (e.target.closest('.edit-btn')) {
+    const username = e.target.closest('.edit-btn').dataset.username;
+    if (username) {
+      editNote(username);
+    }
+  }
+  
+  // 處理刪除按鈕
+  if (e.target.closest('.delete-btn')) {
+    const username = e.target.closest('.delete-btn').dataset.username;
+    if (username) {
+      deleteNote(username);
+    }
+  }
+});
+
 // 儲存編輯
 document.getElementById('saveEdit').addEventListener('click', function() {
   const newNote = document.getElementById('editNote').value.trim();
@@ -160,20 +203,6 @@ document.getElementById('editModal').addEventListener('click', function(e) {
   }
 });
 
-// 刪除備註
-function deleteNote(username) {
-  if (!confirm(`確定要刪除 @${username} 的備註嗎？`)) {
-    return;
-  }
-  
-  const key = `ig_note_${username}`;
-  const timeKey = `ig_note_time_${username}`;
-  
-  chrome.storage.local.remove([key, timeKey], function() {
-    loadAllNotes();
-  });
-}
-
 // 搜尋功能
 document.getElementById('searchInput').addEventListener('input', function(e) {
   const searchTerm = e.target.value.toLowerCase().trim();
@@ -204,9 +233,10 @@ document.getElementById('exportBtn').addEventListener('click', function() {
   }
   
   // 準備 CSV 資料
-  const headers = ['帳號', '備註', '建立時間'];
+  const headers = ['帳號', '標籤', '備註', '建立時間'];
   const rows = allNotes.map(note => [
     note.username,
+    note.tags && note.tags.length > 0 ? note.tags.join(', ') : '',
     note.note,
     note.timestamp ? new Date(note.timestamp).toLocaleString('zh-TW') : '未知'
   ]);
