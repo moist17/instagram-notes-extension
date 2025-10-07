@@ -1,0 +1,26 @@
+# 作業系統檔案
+.DS_Store
+Thumbs.db
+
+# 編輯器設定
+.vscode/
+.idea/
+*.swp
+
+# 日誌檔案
+*.log
+
+# 打包檔案
+*.zip
+
+# 臨時檔案
+*.tmp
+*~
+
+# Node modules（如果未來會用到）
+node_modules/
+
+# 隱私檔案（不要上傳到 GitHub）
+*.key
+*.pem
+secrets.json

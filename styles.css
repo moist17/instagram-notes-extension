@@ -1,0 +1,358 @@
+/* 備註容器 - 更小更精緻的版本 */
+.ig-note-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 16px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+    max-width: 600px;
+    position: relative;
+    z-index: 100;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* 標題區域 - 更精簡 */
+  .ig-note-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    color: white;
+  }
+  
+  .ig-note-icon {
+    font-size: 16px;
+  }
+  
+  .ig-note-title {
+    font-weight: 600;
+    font-size: 13px;
+  }
+  
+  /* 內容區域 - 更緊湊 */
+  .ig-note-content {
+    background: white;
+    border-radius: 6px;
+    padding: 10px;
+  }
+  
+  /* 標籤區域 */
+  .ig-note-tags-section {
+    margin-bottom: 10px;
+  }
+  
+  .ig-note-text-section {
+    margin-bottom: 8px;
+  }
+  
+  .ig-note-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 6px;
+  }
+  
+  /* 標籤容器 */
+  .ig-note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 24px;
+    margin-bottom: 6px;
+  }
+  
+  /* 標籤樣式 */
+  .ig-note-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  
+  .ig-note-tag-remove {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ig-note-tag-remove:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  /* 新增標籤按鈕 */
+  .ig-note-add-tag-btn {
+    background: #f0f0f0;
+    border: 1px dashed #ccc;
+    color: #666;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+  }
+  
+  .ig-note-add-tag-btn:hover {
+    background: #e0e0e0;
+    border-color: #999;
+  }
+  
+  .ig-note-add-tag-btn:active {
+    transform: scale(0.95);
+  }
+  
+  /* 標籤選擇器 */
+  .ig-note-tag-selector {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 320px;
+    max-height: 400px;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  
+  .ig-note-tag-selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .ig-note-tag-selector-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+  }
+  
+  .ig-note-tag-selector-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .ig-note-tag-list {
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .ig-note-tag-option-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+  }
+  
+  .ig-note-tag-option {
+    background: #f0f0f0;
+    border: 2px solid transparent;
+    color: #262626;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .ig-note-tag-option:hover {
+    background: #e0e0e0;
+  }
+  
+  .ig-note-tag-option.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+  }
+  
+  .ig-note-tag-delete {
+    background: #ff4444;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  
+  .ig-note-tag-delete:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+  }
+  
+  .ig-note-tag-custom {
+    padding: 12px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .ig-note-tag-input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .ig-note-tag-input:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  
+  .ig-note-tag-add {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .ig-note-tag-add:hover {
+    background: #5568d3;
+  }
+  
+  .ig-note-textarea {
+    width: 100%;
+    min-height: 60px;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    resize: vertical;
+    box-sizing: border-box;
+    color: #262626;
+    background-color: #ffffff;
+  }
+  
+  .ig-note-textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+  }
+  
+  .ig-note-textarea::placeholder {
+    color: #8e8e8e;
+  }
+  
+  /* 按鈕區域 - 更小的按鈕 */
+  .ig-note-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  
+  .ig-note-save,
+  .ig-note-delete {
+    flex: 1;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .ig-note-save {
+    background: #667eea;
+    color: white;
+  }
+  
+  .ig-note-save:hover {
+    background: #5568d3;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+  }
+  
+  .ig-note-delete {
+    background: #f5f5f5;
+    color: #666;
+  }
+  
+  .ig-note-delete:hover {
+    background: #e0e0e0;
+  }
+  
+  /* 狀態訊息 */
+  .ig-note-status {
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    animation: fadeIn 0.3s;
+  }
+  
+  .ig-note-status.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

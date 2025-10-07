@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram 追蹤備註管理</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 0;
+    }
+
+    .header {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      color: #262626;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: #8e8e8e;
+    }
+
+    .stats {
+      background: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #8e8e8e;
+      margin-top: 4px;
+    }
+
+    .actions {
+      background: white;
+      padding: 15px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #262626;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .recent-notes {
+      background: white;
+      padding: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .recent-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #262626;
+      margin-bottom: 12px;
+    }
+
+    .note-item {
+      padding: 10px;
+      background: #f8f8f8;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .note-item:hover {
+      background: #eeeeee;
+      transform: translateX(2px);
+    }
+
+    .note-username {
+      font-weight: 600;
+      color: #262626;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .note-text {
+      font-size: 12px;
+      color: #666;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px 20px;
+      color: #8e8e8e;
+      font-size: 13px;
+    }
+
+    .footer {
+      background: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 11px;
+      color: #8e8e8e;
+      border-top: 1px solid #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📝 Instagram 追蹤備註</h1>
+    <p>管理你的追蹤備註</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-number" id="totalNotes">0</div>
+      <div class="stat-label">總備註數</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="recentNotes">0</div>
+      <div class="stat-label">最近 7 天</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="openManager">
+      📊 開啟完整管理頁面
+    </button>
+    <button class="btn btn-secondary" id="exportData">
+      💾 匯出所有備註
+    </button>
+  </div>
+
+  <div class="recent-notes">
+    <div class="recent-title">最近的備註</div>
+    <div id="notesList"></div>
+  </div>
+
+  <div class="footer">
+    點擊帳號名稱可直接前往該 IG 頁面
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Instagram 追蹤備註",
+    "version": "1.2",
+    "description": "在 Instagram 個人檔案上新增私人備註",
+    "permissions": [
+      "storage"
+    ],
+    "host_permissions": [
+      "https://www.instagram.com/*"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://www.instagram.com/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"],
+        "run_at": "document_idle"
+      }
+    ]
+  }
