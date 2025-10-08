@@ -24,3 +24,18 @@ node_modules/
 *.key
 *.pem
 secrets.json
+
+# 環境變數檔案
+.env
+.env.local
+
+# 測試覆蓋率報告
+coverage/
+
+# 打包產物
+dist/
+build/
+
+# macOS 額外檔案
+.AppleDouble
+.LSOverride
