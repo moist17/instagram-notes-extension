@@ -359,6 +359,8 @@
         <span class="search-icon">🔍</span>
         <input type="text" id="searchInput" placeholder="搜尋帳號或備註內容...">
       </div>
+      
+      <!-- 現有的按鈕 -->
       <button class="btn btn-secondary" id="syncBtn">
         ☁️ 同步到 Google Sheets
       </button>
@@ -367,6 +369,17 @@
       </button>
       <button class="btn btn-primary" id="refreshBtn">
         🔄 重新載入
+      </button>
+      
+      <!-- 👇 加入這三個新按鈕 -->
+      <button class="btn btn-primary" id="backupBtn">
+        📤 備份到雲端
+      </button>
+      <button class="btn btn-secondary" id="restoreBtn">
+        📥 從雲端還原
+      </button>
+      <button class="btn btn-secondary" id="checkBackupBtn">
+        🔍 檢查備份
       </button>
     </div>
 
@@ -412,6 +425,6 @@
     </div>
   </div>
 
-  <script src="manager.js"></script>
+  <script type="module" src="manager.js"></script>
 </body>
 </html>

@@ -1,23 +1,36 @@
 {
-    "manifest_version": 3,
-    "name": "Instagram 追蹤備註",
-    "version": "1.2",
-    "description": "在 Instagram 個人檔案上新增私人備註",
-    "permissions": [
-      "storage"
-    ],
-    "host_permissions": [
-      "https://www.instagram.com/*"
-    ],
-    "action": {
-      "default_popup": "popup.html"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://www.instagram.com/*"],
-        "js": ["content.js"],
-        "css": ["styles.css"],
-        "run_at": "document_idle"
-      }
-    ]
+  "manifest_version": 3,
+  "name": "Instagram 追蹤備註",
+  "version": "1.3",
+  "description": "在 Instagram 個人檔案上新增私人備註",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.instagram.com/*",
+    "https://api.jsonbin.io/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.instagram.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   }
+}

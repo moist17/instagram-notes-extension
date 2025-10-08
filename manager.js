@@ -1,3 +1,5 @@
+import { backupToCloud, restoreFromCloud, checkBackup } from './simple-backup.js';
+
 let allNotes = [];
 let currentEditUsername = '';
 
@@ -335,3 +337,76 @@ document.getElementById('syncBtn').addEventListener('click', async function() {
 
 // 初始載入
 loadAllNotes();
+
+// ========== 雲端備份功能 ==========
+
+// 備份按鈕
+document.getElementById('backupBtn').addEventListener('click', async function() {
+  const btn = this;
+  const originalText = btn.textContent;
+  
+  btn.textContent = '⏳ 備份中...';
+  btn.disabled = true;
+  
+  const result = await backupToCloud();
+  
+  if (result.success) {
+    alert(`✅ 備份成功!\n\n你的備份碼: ${result.userId}\n\n請妥善保管此備份碼，換電腦時需要用它來還原資料。`);
+  } else {
+    alert(`❌ 備份失敗: ${result.error}`);
+  }
+  
+  btn.textContent = originalText;
+  btn.disabled = false;
+});
+
+// 還原按鈕
+document.getElementById('restoreBtn').addEventListener('click', async function() {
+  const userId = prompt('請輸入你的備份碼:\n(如果是在同一台電腦，可以留空)');
+  
+  if (userId === null) return; // 使用者取消
+  
+  if (!confirm('⚠️ 還原將會覆蓋目前的所有備註，確定要繼續嗎?')) {
+    return;
+  }
+  
+  const btn = this;
+  const originalText = btn.textContent;
+  
+  btn.textContent = '⏳ 還原中...';
+  btn.disabled = true;
+  
+  const result = await restoreFromCloud(userId || undefined);
+  
+  if (result.success) {
+    const date = new Date(result.timestamp);
+    alert(`✅ 還原成功!\n\n備份時間: ${date.toLocaleString('zh-TW')}`);
+    loadAllNotes(); // 重新載入管理頁面
+  } else {
+    alert(`❌ 還原失敗: ${result.error}`);
+  }
+  
+  btn.textContent = originalText;
+  btn.disabled = false;
+});
+
+// 檢查備份按鈕
+document.getElementById('checkBackupBtn').addEventListener('click', async function() {
+  const btn = this;
+  const originalText = btn.textContent;
+  
+  btn.textContent = '⏳ 檢查中...';
+  btn.disabled = true;
+  
+  const result = await checkBackup();
+  
+  if (result.exists) {
+    const date = new Date(result.timestamp);
+    alert(`✅ 找到備份!\n\n備份碼: ${result.userId}\n備份時間: ${date.toLocaleString('zh-TW')}`);
+  } else {
+    alert('ℹ️ 目前沒有備份資料');
+  }
+  
+  btn.textContent = originalText;
+  btn.disabled = false;
+});
